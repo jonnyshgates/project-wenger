@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { NgModel } from '@angular/forms';
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 export interface Item {
@@ -19,7 +21,9 @@ export interface Item {
         <ul [ngClass]="'canvas-list'">
           <li *ngFor="let item of items | async">
             <div [ngClass]="'square'">
-              {{item.title}}
+              {{item.title}} - {{item.id}}
+              <button (click)="deleteItem(item.id)">Delete</button>
+              <button (click)="logItem(item)">Log item</button>
             </div>
           </li>
         </ul>
@@ -29,8 +33,8 @@ export interface Item {
   <div class="container">
     <div class="row">
       <div class="md-col-6">
-        <input type="text" #newItemTitle placeholder="{{newItemPlaceholder}}" >
-        <button (click)="addItem(newItemTitle.value)">Add</button>
+        <input type="text" NgModel="this.newItemTitle" placeholder="{{newItemPlaceholder}}" >
+        <button (click)="addItem(this.newItemTitle)">Add</button>
       </div>
     </div>
   </div>
@@ -45,7 +49,7 @@ export class CanvasComponent implements OnInit {
   list: AngularFirestoreCollection<any>;
 
   newItemPlaceholder = 'Add new item';
-  newItemTitle : string;
+  newItemTitle = 'test';
 
   id: string;
   private sub: any;
@@ -56,7 +60,6 @@ export class CanvasComponent implements OnInit {
     db: AngularFirestore
     ) {
     this.afds = db.collection('squares');
-    console.log(this.afds);
   }
 
   ngOnInit() {
@@ -65,13 +68,24 @@ export class CanvasComponent implements OnInit {
     });
     this.items = this.afds.doc(this.id).collection('list').valueChanges();
     this.list = this.afds.doc(this.id).collection('list');
-    console.log(this.id);
+    console.log(this.items);
+    
   }
 
 
   addItem(itemTitle: string) {
     this.list.add({title: itemTitle});
+    alert(itemTitle + ' was added')
+    this.newItemTitle = '';
+  }
 
+  deleteItem(id: string) {
+    this.list.doc(id).delete();
+    console.log(id);
+  }
+
+  logItem(item: object) {
+    console.log(item);
   }
 
 
