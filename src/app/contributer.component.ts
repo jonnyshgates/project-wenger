@@ -13,12 +13,10 @@ export interface Item {
 @Component({
   selector: 'app-contributer',
   template: `
-  <div class="container">
-
-    <input type="text" #newItemTitle placeholder="" >
-    <button (click)="addItem(newItemTitle.value)">Add</button>
-
-  </div>
+    <div class="row">
+      <input ngClass="contributer-square" type="text" #newItemTitle placeholder="Start typing a new item here..." >
+      <button ngClass="contributer-add" (click)="addItem(newItemTitle.value)">Add</button>
+    </div>
   `
 })
 

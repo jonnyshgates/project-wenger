@@ -23,3 +23,23 @@
   font-size: 30px;
   line-height: 60px;
 }
+
+.contributer-square {
+  width: 100%;
+  background-color: darkslateblue;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 15px;
+  line-height: 45px;
+}
+
+.contributer-add {
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  background-color: deeppink;
+  color: white;
+  padding: 5px;
+}

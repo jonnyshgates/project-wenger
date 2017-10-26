@@ -15,7 +15,7 @@ export interface Item {
   template: `
     <div [ngClass]="'container'">
       <div [ngClass]="'row'">
-        <span> Contributer link: https://project-giroud.firebaseapp.com/canvas/{{this.id}}</span>
+        <span> Send this link to contributers: https://project-giroud.firebaseapp.com/canvas/{{this.id}}</span>
         <ul [ngClass]="'canvas-list'">
           <li *ngFor="let item of items | async">
             <div [ngClass]="'square'">

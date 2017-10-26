@@ -17,10 +17,14 @@
      @Component({
       selector: 'app-root',
       template: `
-        <h1>{{title}}</h1>
-        <router-outlet></router-outlet>
+        <div ngClass="container">
+          <div ngClass="row">
+            <h1>{{title}}</h1>
+          </div>
+            <router-outlet></router-outlet>
+        </div>
       `
     })
     export class AppComponent {
-      title = 'The App';
+      title = 'Project Planner';
     }
